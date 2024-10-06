@@ -16,7 +16,7 @@
 
         testButton.addEventListener('click', async () => {
             try {
-                const response = await fetch('http://localhost:3000');
+                const response = await fetch('/api');
                 const data = await response.text();
                 result.textContent = data;
             } catch (error) {
