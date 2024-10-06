@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Test</title>
+</head>
+<body>
+    <h1>Backend Test</h1>
+    <button id="testButton">Test Backend</button>
+    <p id="result"></p>
+
+    <script>
+        const testButton = document.getElementById('testButton');
+        const result = document.getElementById('result');
+
+        testButton.addEventListener('click', async () => {
+            try {
+                const response = await fetch('http://localhost:3000');
+                const data = await response.text();
+                result.textContent = data;
+            } catch (error) {
+                console.error('Error:', error);
+                result.textContent = 'An error occurred';
+            }
+        });
+    </script>
+</body>
+</html>
