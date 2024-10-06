@@ -1,14 +1,22 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send("I'm working!");
-});
+const apiUrl = 'https://efel.site'; // or your Heroku app URL if different
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+document.querySelector('button').addEventListener('click', async () => {
+  try {
+    const response = await fetch(`${apiUrl}/`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.text();
+    console.log(data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
