@@ -7,21 +7,27 @@
 </head>
 <body>
     <h1>Backend Test 1</h1>
-    <button id="testButton">Test Backend </button>
+    <button id="testButton">Test Backend</button>
     <p id="result"></p>
 
     <script>
         const testButton = document.getElementById('testButton');
         const result = document.getElementById('result');
 
+        // Update this to your Heroku app's URL
+        const apiUrl = 'https://efel.site';
+
         testButton.addEventListener('click', async () => {
             try {
-                const response = await fetch('http://localhost:3000');
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
                 const data = await response.text();
                 result.textContent = data;
             } catch (error) {
                 console.error('Error:', error);
-                result.textContent = 'An error occurred';
+                result.textContent = 'An error occurred: ' + error.message;
             }
         });
     </script>
