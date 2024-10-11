@@ -3,33 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Backend Test Sigma :P</title>
+    <title>Abyss</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Cormorant+Garamond:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Orbitron', serif;
+            background: #000510;
+            color: #e0e0ff;
+            overflow: hidden;
+        }
+    
+        .space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #0a0a2a, #000510);
+        }
+    
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+    
+        .star {
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+    
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 1; }
+        }
+    
+        @keyframes move {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100vh); }
+        }
+    
+        .nebula {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 30% 50%, #4a4ad8, transparent 50%),
+                radial-gradient(circle at 70% 50%, #8080ff, transparent 50%);
+            filter: blur(60px);
+            animation: nebula-pulse 15s ease-in-out infinite alternate;
+        }
+    
+        @keyframes nebula-pulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+    
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+    
+        header {
+            padding: 100px 0 50px;
+        }
+    
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 6em;
+            margin: 0;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(74, 74, 216, 0.6);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+    
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(74, 74, 216, 0.6); }
+            to { text-shadow: 0 0 40px rgba(128, 128, 255, 0.8); }
+        }
+    
+        .tagline {
+            font-size: 1.5em;
+            margin-top: 20px;
+            opacity: 0.9;
+            animation: fade-in 1s ease-out;
+        }
+    
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 0.9; transform: translateY(0); }
+        }
+    
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #4a4ad8, #8080ff);
+            color: #ffffff;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: button-pulse 2s infinite alternate;
+        }
+
+        @keyframes button-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(74, 74, 216, 0.6);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.004); }
+            100% { transform: scale(1); }
+        }
+    
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 100px;
+        }
+    
+        .feature {
+            background: rgba(74, 74, 216, 0.5);
+            border-radius: 15px;
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+    
+        .feature h3 {
+            color: #8080ff;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', serif;
+            font-weight: 700;
+        }
+
+        .feature p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .feature:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(128, 128, 255, 0.5);
+        }
+    </style>
 </head>
 <body>
-    <h1>Backend Test 1</h1>
-    <button id="testButton">Test Backend</button>
-    <p id="result"></p>
-
+    <div class="space-background"></div>
+    <div class="nebula"></div>
+    <div class="stars"></div>
+    <div class="container">
+        <header>
+            <h1>ABYSS</h1>
+            <p class="tagline">By Efel</p>
+            <a href="chat.html" class="cta-button">Dare to jump in?</a>
+        </header>
+        <main>
+            <section class="features">
+                <div class="feature">
+                    <h3>Mystery Awaits</h3>
+                    <p>31</p>
+                </div>
+                <div class="feature">
+                    <h3>Embrace the Unknown</h3>
+                    <p>FELAKET OLMUŞ AŞKIMMM</p>
+                </div>
+                <div class="feature">
+                    <h3>Journey Beyond</h3>
+                    <p>KAHVEİ DE BAŞKA</p>
+                </div>
+            </section>
+        </main>
+    </div>
     <script>
-        const testButton = document.getElementById('testButton');
-        const result = document.getElementById('result');
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            const starCount = 200;
 
-        // Update this to your Heroku app's URL
-        const apiUrl = 'https://efel.site';
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${left}vw`;
+                star.style.top = `${top}vh`;
+                star.style.animation = `twinkle ${Math.random() * 1 + 0.5}s infinite`;
 
-        testButton.addEventListener('click', async () => {
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                if (Math.random() < 0.5) {
+                    const moveDuration = Math.random() * 15 + 15;
+                    star.style.animation += `, move ${moveDuration}s linear infinite`;
                 }
-                const data = await response.text();
-                result.textContent = data;
-            } catch (error) {
-                console.error('Error:', error);
-                result.textContent = 'An error occurred: ' + error.message;
+
+                starsContainer.appendChild(star);
             }
-        });
+        }
+
+        createStars();
     </script>
 </body>
 </html>
